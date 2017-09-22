@@ -6,10 +6,12 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
     protected ArrayList<Book> books;
+    protected ArrayList<Movie> movies;
     protected ArrayList<String> menuOptions;
 
     BibliotecaApp(){
         this.books = new ArrayList<Book>();
+        this.movies = new ArrayList<Movie>();
         this.menuOptions = new ArrayList<String>();
         this.menuOptions.add("1 - List availables books");
         this.menuOptions.add("2 - return a book");
@@ -20,19 +22,23 @@ public class BibliotecaApp {
         this.books.add(newBook);
     }
 
+    public void registerAMovie(Movie newMovie){
+        this.movies.add(newMovie);
+    }
+
 
     public void listAllBooks(){
         for(int i=0; i<books.size(); i++){
             System.out.println(i+1);
 
             System.out.print("Book title: ");
-            books.get(i).printBookTitle();
+            books.get(i).printTitle();
 
             System.out.print("Author: ");
             books.get(i).printBookAuthor();
 
             System.out.print("Year published: ");
-            books.get(i).printBookYearPublished();
+            books.get(i).printYearPublished();
 
             System.out.println("___________________________________________________");
         }
@@ -77,6 +83,14 @@ public class BibliotecaApp {
         biblioteca.registerABook(book2);
         biblioteca.registerABook(book3);
 
+        Movie movie1 = new Movie("O Fabuloso Destino de Amelie Poulain", 2002, "Jean-Pierre Jeunet", 5);
+        Movie movie2 = new Movie("Into the Wild", 2008, "Sean Pean", 5);
+        Movie movie3 = new Movie("O Poderoso Chefão", 1972, "Francis Ford Copola", 5);
+
+        biblioteca.registerAMovie(movie1);
+        biblioteca.registerAMovie(movie2);
+        biblioteca.registerAMovie(movie3);
+
         biblioteca.printWelcomeMessage();
         String userName = biblioteca.scanTypedText();
         User costumer = new User (userName, "Costumer");
@@ -98,9 +112,9 @@ public class BibliotecaApp {
                     choosenBookID = biblioteca.scanTypedInt();
                     chosenBook = biblioteca.books.get(choosenBookID-1);
 
-                    if(chosenBook.checkoutBook(costumer.getID())) {
+                    if(chosenBook.checkout(costumer.getID())) {
                         System.out.println("Thank you! Enjoy the book ");
-                        chosenBook.printBookTitle();
+                        chosenBook.printTitle();
                     }else
                         System.out.println("This is not a valid book. Try again");
 
@@ -116,7 +130,7 @@ public class BibliotecaApp {
                     chosenBook = new Book(bookReturntedName, bookReturnedAuthor, bookReturnedPublishedYear);
                     Book bookToRetur = biblioteca.findABook(chosenBook);
                     if(bookToRetur != null) {
-                        bookToRetur.returnBook(costumer.getID());
+                        bookToRetur.returnItem(costumer.getID());
                         System.out.println("Thanks, book returned");
                     }else
                         System.out.println("Sorry, It was not possibile to return this book");

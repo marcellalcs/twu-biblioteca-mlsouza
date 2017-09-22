@@ -16,4 +16,9 @@ public class User {
     public int getID(){
         return this.userID;
     }
+
+    public boolean login(String userCode, String password){
+        return true;
+    }
+
 }
