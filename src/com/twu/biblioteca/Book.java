@@ -1,7 +1,29 @@
 package com.twu.biblioteca;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Book extends LibraryCollection {
     protected String author;
+
+    public static void printAvailableBooks(ArrayList<Book> books){
+        for(int i=0; i<books.size(); i++){
+            if(!books.get(i).isRented) {
+                System.out.println(i + 1);
+
+                System.out.print("Book title: ");
+                books.get(i).printTitle();
+
+                System.out.print("Author: ");
+                books.get(i).printBookAuthor();
+
+                System.out.print("Year published: ");
+                books.get(i).printYearPublished();
+
+                System.out.println("___________________________________________________");
+            }
+        }
+    }
 
     public Book(boolean isRented, int userID){
         this.isRented = isRented;
@@ -24,6 +46,15 @@ public class Book extends LibraryCollection {
 
     public void printBookAuthor(){
         System.out.println(this.author);
+    }
+
+    public static Book findABook(Book searched, ArrayList<Book> books){
+        Book result = null;
+        for(Book book : books){
+            if(book.isThisMe(searched))
+                result = book;
+        }
+        return result;
     }
 
 

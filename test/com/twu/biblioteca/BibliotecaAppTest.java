@@ -24,4 +24,12 @@ public class BibliotecaAppTest {
         assertEquals(expectedReturn, itGrows);
     }
 
+    @Test
+    public void shouldATypedUserIDBeARightInt(){
+        String typedID = "1234-123";
+        int userIDTransformed = BibliotecaApp.processUserNumberText(typedID);
+        int expectedUserID = 1234123;
+        assertEquals(expectedUserID, userIDTransformed);
+    }
+
 }
